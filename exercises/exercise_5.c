@@ -46,7 +46,7 @@ float calcular(float n1, float n2, char op)
         else
         {
             printf("não foi possivel executa essa operação, o divisor de numero é 0 \n");
-            return 0.0
+            return 0.0;
         }
 
     default:
