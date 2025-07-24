@@ -24,29 +24,37 @@ Como você incluiria também as maiúsculas ('A', 'E'...)?
 */
 
 // ler input
-void contar_vogais(char arr_char[]) {
+int contar_vogais(char arr_char[]) {
+    int contador = 0;
     for (int i = 0; arr_char[i] != '\0'; i++) {// não precisa do tamanho do array
+        char letras = tolower(arr_char[i]);
         if (isupper(arr_char[i])) {
             if (arr_char[i] != 'A' && arr_char[i] != 'E'&& arr_char[i] != 'I'&&
             arr_char[i] != 'O' && arr_char[i] != 'U') {
                 printf("%c: Maiusculo concoantes \n", arr_char[i]);
             } else {
                 printf("%c: Maiusculo Vogais \n", arr_char[i]);
+                contador++;
             }
-        } else if (islower(arr_char[i])) {
+        } else if (letras) {
             if (arr_char[i] != 'a' && arr_char[i] != 'e'&& arr_char[i] != 'i'&&
             arr_char[i] != 'o' && arr_char[i] != 'u') {
                 printf("%c: Minusculas concoantes \n", arr_char[i]);
             } else {
                 printf("%c: Minusculas vogais \n", arr_char[i]);
+                contador++;
             }
         } 
     }
 
+    return contador;
 }
 
 int main() {
     char arr_char[10] = {'a', 'b', 'C', 'd', '\0'};
-    contar_vogais(arr_char);
+    int contador = contar_vogais(arr_char);
+
+    printf("Vogais Contadas: %d \n", contador);
+    
     return 0;
 }
