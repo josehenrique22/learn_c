@@ -13,3 +13,44 @@ A função não pode usar índices ([]). Apenas ponteiros (*str, *(str + i), ou 
 
 No main(), declare uma string qualquer e chame a função para inverter.
 */
+
+int size(char *str);
+int reverse(char *str);
+
+int main() {
+
+    char str[] = {"amor"};
+
+    reverse(str);
+
+    printf("String original reversa: %s\n", str);
+
+    return 0;
+}
+
+int size(char *str) {
+    int count = 0;
+
+    while (*str != '\0') {
+        count++;
+        str++;
+    }
+
+    return count;
+}
+
+int reverse(char *str) {
+    int end = size(str) - 1;
+    int begin = 0;
+
+    while (begin < end) {
+        char temp_var = *(str + begin);
+        *(str + begin) = *(str + end);
+        *(str + end) = temp_var;
+
+        begin++;
+        end--;
+    }
+
+    return 0;
+}
