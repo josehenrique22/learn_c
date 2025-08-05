@@ -25,7 +25,7 @@ int *encontrar_menor(int *arr, int tamanho) {
     int *menor = arr;
 
     for (int i = 0; i < tamanho; i++) {
-        if (*(arr + i) > *menor) {
+        if (*(arr + i) < *menor) {
             menor = arr + i; // memoria
         }
     }

@@ -26,10 +26,9 @@ int main() {
 }
 
 int *primeiro_multiplo_de(int *arr, int tamanho, int n) {
-    int *multiplo = arr;
     for (int i = 0; i < tamanho; i++) {
         if (*(arr + i) % n == 0) {
-            return multiplo + i;
+            return arr + i;
         } 
             
     }
