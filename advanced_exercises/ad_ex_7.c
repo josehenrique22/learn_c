@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 // Melloc memory allocation -> alocação dinamica de  blocos longos de memoria com um tamanho especifico
 
 int main() {
@@ -28,6 +29,10 @@ int main() {
             printf("%d", ptr[k]);
         }
     }
+
+    memset(ptr, 0, size * sizeof(int));
+    free(ptr);
+    
 
     return 0;
 }
