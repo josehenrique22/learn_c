@@ -1,12 +1,12 @@
 CC= gcc
-CFLAGS = -g
+CFLAGS = -g -Wall -Werror
 
 DIR ?= .
 FILE ?= .
 BIN ?= $(FILE)
 
 run:
-	@gcc -Wall $(DIR)/$(FILE).c -o $(BIN)
+	@gcc $(DIR)/$(FILE).c -o $(BIN)
 	@echo "Executando: $(BIN)"
 	@./$(BIN)
 	@rm -f $(BIN)
