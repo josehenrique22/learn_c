@@ -30,8 +30,26 @@ queue *create_queue(size_t size) {
     return q;
 }
 
+// Enqueue com redimensionamento dinâmico
 int enqueue(queue *q, void *element) {
-    if (is_full(q)) return 0;
+    // Redimensionar se cheio
+    if (is_full(q)) {
+        void **new_data = malloc(q->size * 2 * sizeof(void*));
+        if (!new_data) return 0; // falha na alocação
+
+        // Copia elementos na ordem correta
+        for(size_t i = 0; i < q->count; i++) {
+            new_data[i] = q->data[(q->begin + i) % q->size];
+        }
+
+        free(q->data);
+        q->data = new_data;
+        q->size *= 2;
+        q->begin = 0;
+        q->end = q->count;
+    }
+
+    // Inserir o elemento
     q->data[q->end] = element;
     q->end = (q->end + 1) % q->size;
     q->count++;
@@ -46,24 +64,41 @@ void *dequeue(queue *q) {
     return element;
 }
 
+// Teste
 int main() {
-    queue *q = create_queue(5);
+    queue *q = create_queue(2); // começando pequeno para testar redimensionamento
     if (!q) { printf("Erro de memoria\n"); return 1; }
 
-    int a = 10, b = 20;
+    int a = 10, b = 20, c = 30;
     char *msg = "ola mundo";
+    char *msg_2 = "nova mensagem";
+    float d = 2.2f;
 
+    printf("Tamanho antes: %zu\n", q->size);
     enqueue(q, &a);
     enqueue(q, &b);
-    enqueue(q, msg);
+    printf("Tamanho depois de 2 elementos: %zu\n", q->size);
+    enqueue(q, &c); // aqui vai crescer se a fila estiver cheia
+    printf("Tamanho depois de adicionar o 3 elemento: %zu\n", q->size);
+    enqueue(q, msg); // 3
+    enqueue(q, msg_2);
+    printf("Tamanho depois de adicionar o 4 elemento: %zu\n", q->size);
+    enqueue(q, &d);
 
+    // Salva antes da remoção
     int *x = (int*) dequeue(q);
     int *y = (int*) dequeue(q);
+    int *z = (int*) dequeue(q);
     char *s = (char*) dequeue(q);
+    char *s_2 = (char*) dequeue(q);
+    float *zd = (float*) dequeue(q);
 
     printf("int1: %d\n", *x);
     printf("int2: %d\n", *y);
-    printf("str: %s\n", s);
+    printf("int3: %d\n", *z);
+    printf("str1: %s\n", s);
+    printf("str2: %s\n", s_2);
+    printf("float: %.2f\n", *zd);
 
     free(q->data);
     free(q);
